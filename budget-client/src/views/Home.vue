@@ -1,18 +1,41 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <TransactionCard
+      v-for="transaction in transactions"
+      :key="transaction.id"
+      :transaction="transaction"
+    ></TransactionCard>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import TransactionCard from "../components/TransactionCard.vue";
 
 export default {
   name: "Home",
   components: {
-    HelloWorld,
+    TransactionCard,
+  },
+  computed: {
+    transactions() {
+      return this.$store.state.transactions;
+    },
+    balance() {
+      return this.$store.state.balance;
+    },
+  },
+  methods: {
+    fetchTransactions() {
+      this.$store.dispatch("getTranstactions");
+    },
+    fetchBalance() {
+      this.$store.dispatch("getBalance");
+    },
+  },
+  created() {
+    this.fetchTransactions();
+    this.fetchBalance();
   },
 };
 </script>
