@@ -37,7 +37,11 @@ class Controller {
   }
   static async getAllTransaction(req, res, next) {
     try {
-      const response = await Transaction.findAll()
+      const response = await Transaction.findAll({},{
+        order: [
+          ['createdAt', 'DESC']
+        ]
+      })
       res.status(200).json(response)
     } catch (error) {
       next(error)
