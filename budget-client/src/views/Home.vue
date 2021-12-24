@@ -142,7 +142,7 @@ export default {
 .btn {
   /* new tyle button for submit */
   background-color: #f0a045;
-  color: #fff;
+  color: #000;
   padding: 10px;
   border-radius: 10px;
   font-size: 1rem;
