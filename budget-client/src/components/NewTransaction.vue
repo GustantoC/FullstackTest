@@ -16,9 +16,9 @@
         </div>
         <div>
           <label for="amount">Amount: </label><br />
-          <input type="number" v-model="amount" />
+          <input type="text" v-model="amount" @keypress="isNumber($event)" />
         </div>
-        <label>
+        <label class="income">
           <span>This is an income</span
           ><input type="checkbox" v-model="isIncome" />
         </label>
@@ -41,7 +41,7 @@ export default {
   data() {
     return {
       description: "",
-      amount: 0,
+      amount: '',
       isIncome: false,
       loadingStatus: false,
     };
@@ -57,7 +57,24 @@ export default {
         amount: this.amount,
         income: this.isIncome,
       });
-      this.$emit("close");
+      this.description = "";
+      this.amount = 0;
+      this.isIncome = false;
+      this.loadingStatus = false;
+      this.$emit("closeAdd");
+    },
+    isNumber: function (evt) {
+      evt = evt ? evt : window.event;
+      var charCode = evt.which ? evt.which : evt.keyCode;
+      if (
+        charCode > 31 &&
+        (charCode < 48 || charCode > 57) &&
+        charCode !== 46
+      ) {
+        evt.preventDefault();
+      } else {
+        return true;
+      }
     },
   },
 };
@@ -138,5 +155,16 @@ export default {
   padding: 10px;
   cursor: pointer;
   width: 30%;
+}
+input{
+  border-radius: 5px;
+  padding: 10px;
+  border: 1px solid #e0b98c;
+}
+.income{
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
 }
 </style>

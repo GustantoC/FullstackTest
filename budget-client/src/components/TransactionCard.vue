@@ -1,8 +1,8 @@
 <template>
   <div class="card">
     <div class="card-content">
-      <b>{{ transaction.description }}</b>
-      <p v-if="transaction.income" style="color: green">
+      <b>{{ transactionData.description }}</b>
+      <p v-if="transactionData.income" style="color: green">
         {{ amountFormatted }}
       </p>
       <p v-else style="color: red">{{ amountFormatted }}</p>
@@ -16,8 +16,11 @@ export default {
   name: "TransactionCard",
   props: ["transaction"],
   computed: {
+    transactionData(){
+      return this.transaction;
+    },
     createdAtFormatted() {
-      let date = new Date(this.transaction.createdAt);
+      let date = new Date(this.transactionData.createdAt);
       return date.toLocaleString("en-US", {
         year: "numeric",
         month: "long",
@@ -25,7 +28,7 @@ export default {
       });
     },
     amountFormatted() {
-      return this.transaction.amount.toLocaleString("id-ID", {
+      return this.transactionData.amount.toLocaleString("id-ID", {
         style: "currency",
         currency: "IDR",
       });

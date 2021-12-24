@@ -30,6 +30,7 @@ export default new Vuex.Store({
   },
   actions: {
     getTranstactions(context) {
+      console.log("getting Transtactions...");
       axios({
         method: "GET",
         url: "/",

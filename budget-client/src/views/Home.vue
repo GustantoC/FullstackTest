@@ -13,7 +13,11 @@
         <button type="button" class="btn" @click="showModal">
           ➕ New Transaction
         </button>
-        <NewTransaction v-show="isModalVisible" @close="closeModal" />
+        <NewTransaction
+          v-show="isModalVisible"
+          @close="closeModal"
+          @closeAdd="closeModalWithAdd"
+        />
         <div id="transactions">
           <TransactionCard
             v-for="transaction in transactions"
@@ -74,8 +78,13 @@ export default {
     closeModal() {
       this.isModalVisible = false;
     },
+    closeModalWithAdd() {
+      this.fetchTransactions();
+      this.fetchBalance();
+      this.isModalVisible = false;
+    },
   },
-  created() {
+  mounted() {
     this.fetchTransactions();
     this.fetchBalance();
   },
