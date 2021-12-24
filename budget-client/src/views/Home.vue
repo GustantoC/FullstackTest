@@ -101,7 +101,7 @@ export default {
   align-content: center;
   top: 0px;
   left: 50%;
-  transform: translate( -50%);
+  transform: translate(-50%);
   box-shadow: 10px 8px 0 0 rgba(0, 0, 0, 1);
 }
 #header {
@@ -138,5 +138,18 @@ export default {
 #transactions::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
+}
+.btn {
+  /* new tyle button for submit */
+  background-color: #f0a045;
+  color: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-family: "Exo 2", sans-serif;
+  transition: 0.2s;
+}
+.btn:hover {
+  transform: translateY(-0.2rem);
 }
 </style>
