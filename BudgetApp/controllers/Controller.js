@@ -37,7 +37,7 @@ class Controller {
   }
   static async getAllTransaction(req, res, next) {
     try {
-      const response = await Transaction.findAll({},{
+      const response = await Transaction.findAll({
         order: [
           ['createdAt', 'DESC']
         ]
