@@ -1,12 +1,21 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+    <particles/>
     <router-view />
   </div>
 </template>
+
+<script>
+import particles from "./components/particles";
+
+export default {
+  name: "App",
+  components: {
+    particles
+  }
+};
+</script>
+
 
 <style>
 #app {
@@ -14,8 +23,12 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  background-color: rebeccapurple
+  height: 100vh;
+  top: 0px;
+  right: 0px;
+  width: 100%;
+  position: absolute;
+  background-color: yellow;
 }
 
 #nav {
@@ -30,14 +43,5 @@
 #nav a.router-link-exact-active {
   color: #42b983;
 }
-
-.home{
-  /* middle */
-  margin: 0 auto;
-  width: 50%;
-  padding: 20px;
-  background-color: #fff;
-  justify-content: center;
-  align-content: center;
-}
 </style>
+  

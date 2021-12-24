@@ -1,10 +1,13 @@
 <template>
   <div class="card">
-    <h4>
-      <b>{{ transaction.createdAt }}</b>
-    </h4>
-    <p>{{ transaction.description }}</p>
-    <p>{{ transaction.amount }}</p>
+    <div class="card-content">
+      <b>{{ transaction.description }}</b>
+      <p v-if="transaction.income" style="color: green">
+        {{ amountFormatted }}
+      </p>
+      <p v-else style="color: red">{{ amountFormatted }}</p>
+      <p>{{ createdAtFormatted }}</p>
+    </div>
   </div>
 </template>
 
@@ -12,18 +15,38 @@
 export default {
   name: "TransactionCard",
   props: ["transaction"],
+  computed: {
+    createdAtFormatted() {
+      let date = new Date(this.transaction.createdAt);
+      return date.toLocaleString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+    },
+    amountFormatted() {
+      return this.transaction.amount.toLocaleString("id-ID", {
+        style: "currency",
+        currency: "IDR",
+      });
+    },
+  },
 };
 </script>
 
 <style>
 .card {
-  margin: 0 auto;
+  margin: 4px auto;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
-  width: 40%;
+  width: 60%;
+  border-radius: 15px;
+  background-color: rgba(255, 255, 255, 0.5);
 }
-
+.card-content{
+  padding: 10px;
+}
 .card:hover {
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.7);
 }
 </style>
