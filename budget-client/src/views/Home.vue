@@ -55,11 +55,7 @@ export default {
       });
     },
     loadingStatus() {
-      if (this.transactions.length === 0) {
-        return true;
-      } else {
-        return false;
-      }
+      return this.$store.state.loadingStatus;
     },
     transactions() {
       return this.$store.state.transactions;

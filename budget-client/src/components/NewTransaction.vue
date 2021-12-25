@@ -1,9 +1,6 @@
 <template>
   <div class="modal-backdrop">
-    <div v-if="loadingStatus">
-      <Loading />
-    </div>
-    <div v-else class="modal">
+    <div class="modal">
       <header class="modal-header">
         <slot name="header"> Create new transaction </slot>
         <button type="button" class="btn-close" @click="close">x</button>
@@ -32,18 +29,13 @@
 </template>
 
 <script>
-import Loading from "../components/Loading.vue";
 export default {
   name: "Modal",
-  components: {
-    Loading,
-  },
   data() {
     return {
       description: "",
       amount: '',
       isIncome: false,
-      loadingStatus: false,
     };
   },
   methods: {
@@ -51,7 +43,6 @@ export default {
       this.$emit("close");
     },
     add() {
-      this.loadingStatus = true;
       this.$store.dispatch("addTransaction", {
         description: this.description,
         amount: this.amount,
@@ -60,7 +51,6 @@ export default {
       this.description = "";
       this.amount = 0;
       this.isIncome = false;
-      this.loadingStatus = false;
       this.$emit("closeAdd");
     },
     isNumber: function (evt) {

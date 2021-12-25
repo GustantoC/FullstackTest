@@ -16,6 +16,7 @@ export default new Vuex.Store({
   state: {
     transactions: [],
     balance: 0,
+    loadingStatus: true,
   },
   mutations: {
     setTransactions(state, transactions) {
@@ -30,37 +31,36 @@ export default new Vuex.Store({
   },
   actions: {
     getTranstactions(context) {
-      console.log("getting Transtactions...");
+      context.commit("setLoadingStatus", true);
       axios({
         method: "GET",
         url: "/",
       })
         .then(({ data }) => {
           context.commit("setTransactions", data);
+          return axios({
+            method: "GET",
+            url: "/balance",
+          })
         })
-        .catch((error) => {
-          console.log(error);
-        })
-    },
-    getBalance(context) {
-      axios({
-        method: "GET",
-        url: "/balance",
-      })
         .then(({ data }) => {
           context.commit("setBalance", data.balance);
+          context.commit("setLoadingStatus", false);
         })
         .catch((error) => {
           console.log(error);
         })
     },
     addTransaction(_, transaction) {
-      console.log(transaction);
       axios({
         method: "POST",
         url: "/",
         data: transaction,
       })
+        .then(() => {
+          // run getTransactions
+          return this.dispatch("getTranstactions");
+        })
         .then(() => {
           Toast.fire({
             icon: 'success',
